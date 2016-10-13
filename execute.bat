@@ -1,0 +1,1 @@
+powershell.exe ./start_script.ps1
