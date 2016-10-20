@@ -10,8 +10,6 @@ $home_dir = Get-ADUser -Identity $remote_user.Substring($remote_user.IndexOf("\"
 $out_filename = $remote_user.Substring($remote_user.IndexOf("\") + 1) + "_" + $computer + "_pst_paths.txt"
 
 # Run the find_pst.ps1 script on the remote user's machine and save the returned array in a variable.
-$out = Invoke-Command -ComputerName $computer -FilePath .\find_pst.ps1 -ArgumentList $computer, $home_dir
+Invoke-Command -ComputerName $computer -FilePath .\find_pst.ps1 -ArgumentList $computer >> $out_filename
 # Look for PST files in the remote user's home folder. Append the results in the array to be outputted.
-$out += Get-ChildItem $home_dir -ErrorAction SilentlyContinue -Recurse -Include "*.pst" | select LastWriteTime, Name, Directory
-
-$out >> $out_filename
+Get-ChildItem $home_dir -ErrorAction SilentlyContinue -Recurse -Include "*.pst" | select LastWriteTime, Name, Directory >> $out_filename
