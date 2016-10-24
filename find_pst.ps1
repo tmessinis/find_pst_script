@@ -7,7 +7,7 @@
     # Loop through the local drives and recursively search them for PST files. Add paths to array.
     foreach ($local_drive in $local_drives) {
         $path = $local_drive[0] + ":\"
-        $pst_paths += Get-ChildItem $path -ErrorAction SilentlyContinue -Recurse -Include "*.pst" | select LastWriteTime, Name, Directory
+        $pst_paths += Get-ChildItem $path -ErrorAction SilentlyContinue -Force -Recurse -Include "*.pst" | Select-Object LastWriteTime, Name, Directory
     }
 
     return $pst_paths
